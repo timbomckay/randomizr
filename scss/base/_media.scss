@@ -1,0 +1,64 @@
+/*---------------------------------------------*\
+  Base Styling Media Elements
+\*---------------------------------------------*/
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+
+	&.alignleft {
+		float: left;
+		max-width: 65%;
+		margin-left: -$gutter-width;
+		margin-right: $gutter-width;
+		margin-bottom: $gutter-width;
+	}
+
+	&.alignright {
+		float: right;
+		max-width: 65%;
+		margin-left: $gutter-width;
+		margin-right: -$gutter-width;
+		margin-bottom: $gutter-width;
+	}
+
+	&.aligncenter {
+		margin: ($gutter-width) (-$gutter-width);
+		width: calc(100% + #{$gutter-width * 2});
+    max-width: calc(100% + #{$gutter-width * 2});;
+	}
+
+	@include breakpoint(small down) {
+		max-width: 100%;
+		&.alignleft, &.alignright {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		&.aligncenter {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	a > & {
+		opacity: 1;
+		transition-property: opacity;
+		&:hover {
+			opacity: 0.8;
+			// backface-visibility: hidden;
+		}
+	}
+
+}
+
+	svg {
+		&.icon {
+			display: block;
+			@include square(1em);
+			// color: inherit;
+			fill: currentColor;
+			use, path { fill: currentColor; }
+		}
+	}

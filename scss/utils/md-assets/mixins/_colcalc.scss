@@ -1,0 +1,51 @@
+////
+/// Column calculation mixins
+/// @author Mission Data
+/// @access public
+////
+
+$column-gap : 2em !default;
+
+///
+/// Apply a calculated column width to an element. Width is based on
+/// a percentage of the parent width and should always be provided as a decimal
+/// value less than or equal to `1` (which will output `100%`).
+/// @group columns
+///
+/// @param {Width}     $width - target width of column
+/// @param {Gap}       $gap - Width of gap between columns
+///
+/// @example scss - create a column 2/5 the width of the parent element
+///   @include col-calc(.4);
+///
+/// @example css - CSS result
+///    width: calc(40%, 2em);
+///
+/// @example scss - create a column 2/3 the width of the parent element with a 15px gutter
+///   @include col-calc(.66, 15px);
+///
+/// @example css - CSS result
+///    width: calc(66%, 15px);
+///
+@mixin columns-calc($width: 0, $gap: $column-gap) {
+	$w: $width * 100%;
+	$gutter: ($gap - $width * $gap) + 0.01; // Some browsers need that small extra nudge
+	width: calc(#{$w} - #{$gutter});
+}
+
+///
+/// Generate columns within content.
+/// @group columns
+///
+/// @param {Count}     $count - number of columns to create
+/// @param {Gap}       $gap - gap between columns
+///
+/// @example scss - create three columns with a 15px gap
+///   @include content-columns(3, 15px);
+///
+@mixin columns-content($count, $gap) {
+  column-count: $count;
+  column-gap: $gap;
+
+  > * { margin-left: $gap; }
+}

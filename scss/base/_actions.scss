@@ -1,0 +1,87 @@
+/*---------------------------------------------*\
+  Actions Styling - Anchor Tags & Buttons
+\*---------------------------------------------*/
+
+a {
+
+	text-decoration: none;
+	color: $link-color;
+	transition-property: color;
+
+	&:hover {
+		color: $link-hover;
+		.single .content-area & {
+			text-decoration: underline;
+		}
+	}
+
+	&:active, &:focus {
+
+	}
+
+	&:visited {
+
+	}
+
+	&.image-link {
+		display: block;
+		transition-property: opacity;
+		opacity: 1;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	&[href*="#footnote"] {
+    font-size: 0.5em;
+    font-weight: bold;
+    font-family: $sans;
+    position: relative;
+    top: -1em;
+    margin-left: 0.25em;
+
+    &:hover {
+    	text-decoration: none;
+    	color: $blue;
+    }
+	}
+
+}
+
+button, .button, input[type="button"], input[type="submit"] {
+
+	color: white;
+	background-color: $link-color;
+	display: inline-block;
+	text-align: center;
+	padding: 0.5em 1.75em;
+	font-family: $sans;
+	font-size: 0.9rem;
+	font-weight: bold;
+	border: 0;
+	border-radius: 2px;
+	cursor: pointer;
+
+	transition-property: background-color, transform, box-shadow;
+	transform: translateY(0);
+	box-shadow: 0 0 0 rgba(0,0,0,0.5);
+
+	&:hover {
+		background-color: $link-hover;
+		transform: translateY(-3px);
+		box-shadow: 0 6px 10px rgba(0,0,0,0.125);
+	}
+
+	&:active, &:focus {
+		transition-duration: 0.05s;
+		transform: translateY(0);
+		box-shadow: inset 1px 2px 4px rgba(0,0,0,0.25);
+	}
+
+	&.post_loading_loader {
+		transform: translateY(0);
+		box-shadow: 0 0 0 rgba(0,0,0,0.5);
+		background-color: $grey-light;
+	}
+
+}

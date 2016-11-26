@@ -1,0 +1,79 @@
+////
+/// Font-face mixin
+/// @author Mission Data
+/// @access public
+////
+
+/// 
+/// A mixin for writing @font-face rules in SASS.
+/// Source :  https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6
+/// 
+/// @param {Name}				$name - Name of the font-family
+/// @param {Path}				$path - Path to font files
+/// @param {Weight}			$weight - Weight of the font (light/normal/bold)
+/// @param {Style}			$style - Style of the font (normal/italic)
+/// @param {Extensions} $extensions - Extensions included, defaults to all (eot woff2 woff ttf svg)
+///
+/// @example scss
+///   @include font-face(Lato, fonts/Lato);
+///
+/// @example css - Output
+/// 	@font-face {
+///	  	font-family: "Lato";
+///	  	src: url("fonts/Lato.eot?") format("eot"),
+///	    	url("fonts/Lato.woff2") format("woff2"),
+///	      url("fonts/Lato.woff") format("woff"),
+///	      url("fonts/Lato.ttf") format("truetype"),
+///	      url("fonts/Lato.svg#Lato") format("svg");
+///			}
+///
+/// @example scss
+///   @include font-face(Lato, fonts/Lato, bold, italic, ttf svg);
+///
+/// @example css - Output
+/// 	@font-face {
+///	  	font-family: "Lato";
+///	  	font-weight: bold;
+///	  	font-style: italic;
+///	  	src: url("fonts/Lato.ttf") format("truetype"),
+///	      url("fonts/Lato.svg#Lato") format("svg");
+///			}
+///
+/// @example scss
+///   @include font-face(Lato, fonts/Lato, null, null, ttf svg);
+///
+/// @example css - Output
+/// 	@font-face {
+///	  	font-family: "Lato";
+///	  	src: url("fonts/Lato.ttf") format("truetype"),
+///	      url("fonts/Lato.svg#Lato") format("svg");
+///			}
+///
+
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}

@@ -1,0 +1,18 @@
+/*---------------------------------------------*\
+  Variables
+\*---------------------------------------------*/
+
+$content-width: 1240px;
+$gutter-width : 3rem;
+
+// Viewport Breakpoints
+$breakpoints: (
+	xsmall: 0px,
+  small: 560px,
+  medium: 800px,
+  large: 1024px,
+  xlarge: 1280px,
+  xxlarge: 1440px,
+);
+
+// map-get($breakpoints, small)

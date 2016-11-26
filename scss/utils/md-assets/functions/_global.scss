@@ -1,0 +1,66 @@
+////
+/// Global functions
+/// @author Mission Data
+/// @access public
+////
+
+///
+/// Remove the unit from a value.
+/// @group global-functions
+///
+/// @param {Num}       $num - value to remove unit from
+///
+/// @return {Number}   unitless version of provided value
+///
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+///
+/// Replace one character in a string with another.
+/// @group global-functions
+///
+/// @param {String}    $string - source string
+/// @param {Character} $search - character to search for
+/// @param {Character} $replace - character to replace $search with
+///
+/// @return {String}   modified version of provided string
+///
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index +
+      str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+///
+/// Cast a value as a string.
+/// @group global-functions
+///
+/// @param {Value}    $value - value to convert
+///
+/// @return {String}  string representation of provided value
+///
+@function to-string($value) {
+  @return inspect($value);
+}
+
+///
+/// Return the rem presentation of pixels without a unit.
+/// @group global-functions
+///
+/// @param {Num} $num - value to convert
+///
+/// @return {Number}
+@function px-to-rem($num) {
+  @return strip-unit($num / 10);
+}

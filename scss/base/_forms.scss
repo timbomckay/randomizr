@@ -1,0 +1,48 @@
+/*---------------------------------------------*\
+  Form Element Styling
+\*---------------------------------------------*/
+
+form {
+	position: relative;
+}
+
+label {
+	font-family: $sans;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: $blue;
+}
+
+input, select, textarea {
+	max-width: 100%;
+	@include breakpoint(xsmall down) {
+		font-size: 16px;
+	}
+}
+
+textarea {
+	resize: vertical;
+}
+
+.wpcf7-form {
+	input[type="text"],
+	input[type="email"],
+	textarea {
+		width: 100%;
+		border: 1px solid $grey-light;
+		transition-property: border-color;
+
+		&:active, &:focus {
+			border-color: $link-color;
+		}
+
+	}
+	
+	.col { padding-bottom: 0; }
+	> div { margin-bottom: 2rem; }
+
+	@include breakpoint(xsmall down) {
+		.col:not(:last-child) { margin-bottom: 2rem; }
+	}
+
+}

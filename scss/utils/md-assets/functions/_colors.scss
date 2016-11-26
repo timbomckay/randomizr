@@ -1,0 +1,41 @@
+////
+/// Color operations
+/// @author Mission Data
+/// @access public
+////
+
+///
+/// Darken a color. Mixes pure black into the provided color and
+/// returns a darker version. Percentage refers to how much of the
+/// original color should remain; a value of `0%` would return pure black.
+/// @group colors
+///
+/// @param {Color}     $color - color to shade
+/// @param {Number}    $percentage - percentage of `$color` in returned color
+///
+/// @return {Color}    shaded version of provided color
+///
+/// @example scss - Darken red by 20%
+///   color: shade(red, 80%);
+///
+@function shade($color, $percentage) {
+  @return mix($color, black, $percentage);
+}
+
+///
+/// Lighten a color. Mixes pure white into the provided color and
+/// returns a lighter version. Percentage refers to how much of the
+/// original color should remain; a value of `0%` would return pure white.
+/// @group colors
+///
+/// @param {Color}     $color - color to tint
+/// @param {Number}    $percentage - percentage of `$color` in returned color
+///
+/// @return {Color}    tinted version of provided color
+///
+/// @example scss - Lighten red by 20%
+///   color: tint(red, 80%);
+///
+@function tint($color, $percentage) {
+  @return mix($color, white, $percentage);
+}
