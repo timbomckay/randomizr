@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+/* jQuery(document).ready(function($) {
 	// Find the right method, call on correct element
 	function launchFullscreen(element) {
 	    if (element.requestFullscreen) {
@@ -125,4 +125,41 @@ jQuery(document).ready(function($) {
 	    }
 	});
 
+});
+*/
+
+var app = new Vue({
+	el: '#app',
+  // app initial state
+  data: {
+    // todos: todoStorage.fetch(),
+    // newTodo: '',
+    // editedTodo: null,
+    // visibility: 'all',
+
+		message: 'Hello Vue!',
+
+		people: {
+      8174 : {
+      	name: 'Person 1',
+      	count: 10
+      },
+      1747 : {
+      	name: 'Person 2',
+      	count: 8
+      }
+		},
+
+		shared: [
+			{
+				id: [ 8174, 1747 ],
+				count: 1
+			},
+			{
+				id: [ 8174, 2104 ],
+				count: 1
+			}
+		]
+
+  }
 });
