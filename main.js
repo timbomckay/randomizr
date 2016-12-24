@@ -137,29 +137,46 @@ var app = new Vue({
     // editedTodo: null,
     // visibility: 'all',
 
-		message: 'Hello Vue!',
+		message: 'Hello Randomizr!',
 
-		people: {
-      8174 : {
-      	name: 'Person 1',
-      	count: 10
+		people: [
+      {
+      	name: 'Kevin',
+      	count: 2
       },
-      1747 : {
-      	name: 'Person 2',
-      	count: 8
+      {
+      	name: 'Janet',
+      	count: 3
+      },
+      {
+      	name: 'John',
+      	count: 1
+      },
+      {
+      	name: 'Sarah',
+      	count: 4
+      },
+      {
+      	name: 'Tim',
+      	count: 2
+      },
+      {
+      	name: 'Karissa',
+      	count: 3
       }
-		},
 
-		shared: [
-			{
-				id: [ 8174, 1747 ],
-				count: 1
-			},
-			{
-				id: [ 8174, 2104 ],
-				count: 1
-			}
 		]
+
+		// shared: [
+		// 	{
+		// 		id: [ 8174, 1747 ],
+		// 		count: 1
+		// 	},
+		// 	{
+		// 		id: [ 8174, 2104 ],
+		// 		count: 1
+		// 	}
+		// ]
 
   }
 });
