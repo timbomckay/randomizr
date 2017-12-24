@@ -113,7 +113,7 @@ var app = new Vue({
   data: {
 		message: 'Randomizr!',
     people: listStorage.fetch(),
-		presentation : false,
+		present : false,
 
 		newPerson: {
       name: '',
@@ -166,9 +166,9 @@ var app = new Vue({
     },
 		startRandomizr: function () {
 			launchFullscreen(document.documentElement)
-			app.presentation = true
+			app.present = true
 			window.addEventListener('keyup', function(e){
-				if(e.key == 'Escape') app.presentation = false;
+				if(e.key == 'Escape') app.present = false;
 			})
 		}
   }

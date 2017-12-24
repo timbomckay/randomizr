@@ -8,36 +8,35 @@
 
 <body>
 
-	<section id="app" class="todoapp">
+	<div id="app" class="todoapp">
 
 	  <header class="header">
 
 	    <h1>{{ message }}</h1>
 
-			<button v-if="!presentation" @click="startRandomizr">Start</button>
+			<button v-if="!present" @click="startRandomizr">Start</button>
 
 	  </header>
 
-		<section class="edit-list" v-if="!presentation" @keyup.esc="presentation = false">
+		<section class="edit-list" v-if="!present" @keyup.esc="present = false">
 
-			<div v-for="person in people"
-				class="person"
-				:key="person['.key']">
+			<div v-for="person in people" class="person" :key="person['.key']" >
+				<input type="number" v-model="person.count" name="quantity" min="0" placeholder="0">
+				<label>{{ person.name }}</label>
 				<button @click="person.count++">+</button>
 				<button @click="person.count--">-</button>
-				<label>{{ person.count }} {{ person.name }}</label>
 				<button @click="removePerson(person)">X</button>
 			</div>
 
 			<form id="form" v-on:submit.prevent="addPerson">
-				<input type="number" v-model="newPerson.count" name="quantity" min="1" placeholder="0">
+				<input type="number" v-model="newPerson.count" name="quantity" min="0" placeholder="0">
 				<input type="text" v-model="newPerson.name" placeholder="Name">
-				<input type="submit" value="Add Person">
+				<input type="submit" value="Add Name">
 			</form>
 
 		</section>
 
-	</section>
+	</div>
 
 	<!-- <script src="jquery-2.1.4.min.js" type="text/javascript"></script> -->
 	<script src="main.js" type="text/javascript"></script>
