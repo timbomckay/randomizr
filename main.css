@@ -1,6 +1,76 @@
+html {
+  font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 600px) {
+  html { font-size: 19px; }
+}
+@media (min-width: 1240px) {
+  html { font-size: 24px; }
+}
+
+html *, html *:before, html *:after {
+  box-sizing: inherit;
+  transition: none 0.2s ease-in-out;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	line-height: 1.65;
+	color: #37474F;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
 .randomizr {
-  padding: 2rem;
+
+}
+
+.edit-list {
   height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 32rem;
+}
+
+.list-person {
+  width: 25%;
+  padding: 0.25rem 1.5rem;
+  display: inline-flex;
+  position: relative;
+}
+
+.list-qty {
+  border: 0;
+  font-size: 0.75rem;
+  width: 2.5em;
+  text-align: right;
+}
+
+.list-controls {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 0;
+}
+
+[class*="list-controller"] {
+  display: block;
+  position: absolute;
 }
 
 .presentation {
@@ -8,6 +78,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  /* padding: 2rem; */
+  height: 100vh;
+  text-align: center;
 }

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<link href="main.css" type="text/css" rel="stylesheet">
 	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
 </head>
@@ -19,35 +18,44 @@
 
 		  </header>
 
-			<form id="form" v-on:submit.prevent="addPerson">
+			<form v-on:submit.prevent="addPerson">
 				<input type="number" v-model="newPerson.count" name="quantity" min="0" placeholder="0">
 				<input type="text" v-model="newPerson.name" placeholder="Name">
 				<input type="submit" value="Add Name">
 			</form>
 
-			<div v-for="person in people" class="person" :key="person['.key']" >
-				<input type="number" v-model="person.count" name="quantity" min="0" placeholder="0">
-				<label>{{ person.name }}</label>
-				<button @click="person.count++">+</button>
-				<button @click="person.count > 0 ? person.count-- : null">-</button>
-				<button @click="removePerson(person)">X</button>
+			<div class="list">
+				<div v-for="person in people" class="list-person" :key="person['.key']" >
+					<input class="list-qty" type="number" v-model="person.count" name="quantity" min="0" placeholder="0">
+					<label class="list-name">{{ person.name }}</label>
+					<div class="list-controls">
+						<button class="list-controller--inc" @click="person.count++">+</button>
+						<button class="list-controller--dec" @click="person.count > 0 ? person.count-- : null">-</button>
+						<button class="list-controller--rem" @click="removePerson(person)">X</button>
+					</div>
+				</div>
 			</div>
 
-			<button @click="startRandomizr" class="btn btn-primary">Start</button>
+			<button @click="startRandomizr" class="btn">Start</button>
 
 		</section>
 
 		<section class="presentation" v-if="present" @click="iterator++">
 
-			<h1>{{ selected.name }}</h1>
-			<h3 v-if="selected.count > 0">{{ selected.count }} Gifts Remaining</h3>
-			<h3 v-else>Last One, Make It Count</h3>
+			<div v-if="iterator < bowl.length">
+				<h1>{{ selected.name }}</h1>
+				<h3 v-if="selected.count > 0">{{ selected.count }} Gifts Remaining</h3>
+				<h3 v-else>Last One, Make It Count</h3>
+			</div>
+
+			<div v-else>
+				Merry Christmas
+			</div>
 
 		</section>
 
 	</div>
 
-	<!-- <script src="jquery-2.1.4.min.js" type="text/javascript"></script> -->
 	<script src="main.js" type="text/javascript"></script>
 
 </body>

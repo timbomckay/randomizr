@@ -123,7 +123,7 @@ let app = new Vue({
 	computed: {
 
 		uid: function(){
-			return Math.max.apply(Math,app.people.map(function(obj){return obj.id})) + 1
+			return app.people.length ? Math.max.apply(Math,app.people.map(function(obj){return obj.id})) + 1 : 1
 		},
 
 		selected: function(){
