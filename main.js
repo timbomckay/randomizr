@@ -26,80 +26,14 @@ function dumpFullscreen() {
 		console.log("document.fullscreenEnabled is: ", document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled);
 }
 
-
-/* jQuery(document).ready(function($) {
-
-	function newSelection() {
-	    var selection = items.sort(function () {
-	        return 0.5 - Math.random();
-	    }).pop();
-
-	    var instances = $.grep(items, function (elem) {
-	        return elem === selection;
-	    }).length;
-
-	    $('#selection').text(selection);
-
-	    if (instances > 0) {
-	        $('#selection').append('<span>You have ' + instances + ' left.</span>');
-	    } else {
-	        $('#selection').append('<span>Last One</span>');
-	    }
-
-	    if (items.length === 0) {
-	        lastItem = true;
-	    }
-	}
-
-	var items = new Array(),
-	    lastItem = false;
-
-	// Add items to list
-	$('#list li').each(function () {
-    var amount = $(this).data('amount'),
-      i = 0,
-      item = $(this).text();
-
-    function addItem(name) {
-      if (amount > i) {
-        i++;
-        items.push(name);
-        addItem(name);
-      }
-    }
-
-    addItem(item);
-	});
-
-	$('#start').click(function () {
-	    launchFullscreen(document.documentElement);
-	    newSelection();
-	    $('#next').removeAttr('style');
-	    $(this).remove();
-	});
-
-	$('#next').click(function () {
-	    if (lastItem === true) {
-	        $('#selection').text('All Done!');
-	        $('#controls').remove();
-	    } else {
-	        newSelection();
-	    }
-	});
-
-});
-*/
-
-
 // localStorage persistence
-var STORAGE_KEY = 'randomizr'
-var listStorage = {
+const STORAGE_KEY = 'randomizr'
+let listStorage = {
   fetch: function () {
     var people = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-    people.forEach(function (person, index) {
-      person.id = index
-    })
-    listStorage.uid = people.length
+    // people.forEach(function (person, index) {
+    //   person.id = index
+    // })
     return people
   },
   save: function (people) {
@@ -107,29 +41,22 @@ var listStorage = {
   }
 }
 
-var app = new Vue({
+// let uid = 0 // Math.max.apply(Math,array.map(function(obj){return obj.id;}))
+
+let app = new Vue({
 	el: '#app',
+
   // app initial state
   data: {
-		message: 'Randomizr!',
-    people: listStorage.fetch(),
-		present : false,
-
 		newPerson: {
       name: '',
       count: ''
     },
-
-		// shared: [
-		// 	{
-		// 		id: [ 8174, 1747 ],
-		// 		count: 1
-		// 	},
-		// 	{
-		// 		id: [ 8174, 2104 ],
-		// 		count: 1
-		// 	}
-		// ]
+    people: listStorage.fetch(),
+		present : false,
+		bowl: [],
+		iterator: 0,
+		history: []
 
   },
 
@@ -145,6 +72,7 @@ var app = new Vue({
 
   // methods
   methods: {
+
     addPerson: function () {
       if ( !this.newPerson.name || !this.newPerson.name.trim() || !this.newPerson.count ) {
         return
@@ -152,7 +80,7 @@ var app = new Vue({
 
       app.people.push({
         // id: listStorage.uid++,
-				id: app.people.uid++,
+				id: this.uid,
         name: this.newPerson.name,
         count: this.newPerson.count
       })
@@ -161,16 +89,69 @@ var app = new Vue({
       this.newPerson.count = ''
 
     },
+
     removePerson: function (person) {
       this.people.splice(this.people.indexOf(person), 1)
     },
+
 		startRandomizr: function () {
+
+			let bowl = this.bowl
+
+			// for each person in people
+			this.people.forEach(function(person) {
+
+				// while in count
+				for (i = 0; i < person.count; i++) {
+					// add name to bowl
+			    bowl.push(person.id)
+				}
+
+			})
+
+			bowl.sort(function() { return 0.5 - Math.random() })
+
 			launchFullscreen(document.documentElement)
 			app.present = true
 			window.addEventListener('keyup', function(e){
 				if(e.key == 'Escape') app.present = false;
 			})
 		}
-  }
+
+  },
+
+	computed: {
+
+		uid: function(){
+			return Math.max.apply(Math,app.people.map(function(obj){return obj.id})) + 1
+		},
+
+		selected: function(){
+
+			if(app.bowl.length) {
+
+				let id = app.bowl[app.iterator]
+
+				return app.people.find(function(person) {
+
+					if(person.id === id) {
+
+						--person.count
+
+						return person
+
+				  }
+
+				})
+
+			} else {
+
+				return 0
+
+			}
+
+		}
+
+	}
 
 });
