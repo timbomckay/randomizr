@@ -8,35 +8,41 @@
 
 <body>
 
+	<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+		<symbol id="plus" viewBox="0 0 512 512"><path d="M448 224H288V64h-64v160H64v64h160v160h64V288h160z"/></symbol>
+		<symbol id="minus" viewBox="0 0 512 512"><path d="M64 224h384v64H64z"/></symbol>
+		<symbol id="close" viewBox="0 0 512 512"><path d="M443.6 387.1L312.4 255.4l131.5-130c5.4-5.4 5.4-14.2 0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L256 197.8 124.9 68.3c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L68 105.9c-5.4 5.4-5.4 14.2 0 19.6l131.5 130L68.4 387.1c-2.6 2.6-4.1 6.1-4.1 9.8 0 3.7 1.4 7.2 4.1 9.8l37.4 37.6c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1L256 313.1l130.7 131.1c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1l37.4-37.6c2.6-2.6 4.1-6.1 4.1-9.8-.1-3.6-1.6-7.1-4.2-9.7z"/></symbol>
+	</svg>
+
 	<div id="app" class="randomizr">
 
 		<section class="edit-list" v-show="!present">
 
 			<header class="header">
 
-		    <h1>Randomizr</h1>
+		    <h1>Gifts Randomizr</h1>
 
 		  </header>
-
-			<form v-on:submit.prevent="addPerson">
-				<input type="number" v-model="newPerson.count" name="quantity" min="0" placeholder="0">
-				<input type="text" v-model="newPerson.name" placeholder="Name">
-				<input type="submit" value="Add Name">
-			</form>
 
 			<div class="list">
 				<div v-for="person in people" class="list-person" :key="person['.key']" >
 					<input class="list-qty" type="number" v-model="person.count" name="quantity" min="0" placeholder="0">
 					<label class="list-name">{{ person.name }}</label>
 					<div class="list-controls">
-						<button class="list-controller--inc" @click="person.count++">+</button>
-						<button class="list-controller--dec" @click="person.count > 0 ? person.count-- : null">-</button>
-						<button class="list-controller--rem" @click="removePerson(person)">X</button>
+						<button class="list-controller--inc" @click="person.count++"><svg class="icon"><use xlink:href="#plus" /></svg></button>
+						<button class="list-controller--dec" @click="person.count > 0 ? person.count-- : null"><svg class="icon"><use xlink:href="#minus" /></svg></button>
+						<button class="list-controller--rem" @click="removePerson(person)"><svg class="icon"><use xlink:href="#close" /></svg></button>
 					</div>
 				</div>
 			</div>
 
-			<button @click="startRandomizr" class="btn">Start</button>
+			<form class="form-addPerson" v-on:submit.prevent="addPerson">
+				<input class="form-qty" type="number" v-model="newPerson.count" name="quantity" min="0" placeholder="0">
+				<input class="form-name" type="text" v-model="newPerson.name" placeholder="Name">
+				<input class="btn" type="submit" value="Add Name">
+			</form>
+
+			<button @click="startRandomizr" class="btn btn-start">Start</button>
 
 		</section>
 
