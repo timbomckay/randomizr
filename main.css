@@ -5,7 +5,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   html { font-size: 19px; }
 }
 @media (min-width: 1240px) {
@@ -56,6 +56,7 @@ svg.icon {
   text-transform: uppercase;
   background-color: #F44336;
   box-shadow: 0 0 0 rgba(0,0,0,.5);
+  flex: 0 0 auto;
 }
 
 .btn-start:hover {
@@ -70,6 +71,13 @@ svg.icon {
   background-position: center;
 }
 
+@media screen and (max-width: 600px) {
+  .randomizr {
+    background-image: url('https://images.unsplash.com/photo-1510284876186-b1a84b94418f?auto=format&fit=crop&w=1024&q=80');
+    background-size: cover;
+  }
+}
+
 .edit-list {
   height: 100vh;
   padding: 2rem;
@@ -81,11 +89,13 @@ svg.icon {
 
 .edit-list h1 {
   font-size: 2rem;
+  margin-top: 0;
 }
 
 .form-addPerson {
   margin-bottom: 2rem;
   display: flex;
+  flex: 0 0 auto;
 }
 
 .form-qty, .form-name {
@@ -114,17 +124,30 @@ svg.icon {
 .form-name:focus { border-color: #F44336; }
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
   max-width: 36rem;
   margin-bottom: 2rem;
+  overflow: scroll;
+}
+
+@media screen and (max-width: 600px) {
+  .list {
+    overflow: scroll;
+  }
 }
 
 .list-person {
-  width: 25%;
-  padding: 0.5rem 1.5rem;
-  display: inline-flex;
+  width: 100%;
+  padding: 0.5rem;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 601px) {
+  .list-person {
+    width: 25%;
+    padding: 0.5rem 1.5rem;
+  }
 }
 
 .list-qty {
@@ -135,22 +158,18 @@ svg.icon {
   background-color: transparent;
 }
 
-.list-name {
-  font-weight: bold;
+@media screen and (max-width: 600px) {
+  .list-qty {
+    margin-right: 1rem;
+  }
 }
 
-.list-controls {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  line-height: 0;
-  z-index: 1;
+.list-name {
+  font-weight: bold;
+  flex: 1;
 }
 
 [class*="list-controller"] {
-  display: block;
-  position: absolute;
   border: 0;
   height: 1rem;
   width: 1rem;
@@ -160,31 +179,6 @@ svg.icon {
   font-size: 0.5rem;
   padding: 0;
   background-color: whitesmoke;
-  cursor: pointer;
-  transition-property: all;
-}
-
-[class*="list-controller"]:focus {
-  outline: 0;
-}
-
-[class*="list-controller"]:hover {
-  color: white;
-  z-index: 1;
-}
-
-.list-person:not(:hover) [class*="list-controller"] {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.list-controller--inc {
-  right: 0;
-  bottom: 0;
-}
-
-.list-person:not(:hover) .list-controller--inc {
-  transform: translate3d(-10px,-10px,0)
 }
 
 .list-controller--inc:hover {
@@ -192,32 +186,74 @@ svg.icon {
   background-color: #43A047;
 }
 
-.list-controller--dec {
-  right: 0;
-  top: 0;
-}
-
-.list-person:not(:hover) .list-controller--dec {
-  transform: translate3d(-10px,10px,0)
-}
-
 .list-controller--dec:hover {
   color: white;
   background-color: #43A047;
 }
 
-.list-controller--rem {
-  top: -0.5rem;
-  left: -0.25rem;
-}
-
-.list-person:not(:hover) .list-controller--rem {
-  transform: translate3d(10px,0px,0)
-}
-
 .list-controller--rem:hover {
   color: white;
   background-color: #F44336;
+}
+
+@media screen and (min-width: 601px) {
+
+  .list-controls {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+    z-index: 1;
+  }
+
+  [class*="list-controller"] {
+    position: absolute;
+    cursor: pointer;
+    transition-property: all;
+  }
+
+  [class*="list-controller"]:focus {
+    outline: 0;
+  }
+
+  [class*="list-controller"]:hover {
+    color: white;
+    z-index: 1;
+  }
+
+  .list-person:not(:hover) [class*="list-controller"] {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .list-controller--inc {
+    right: 0;
+    bottom: 0;
+  }
+
+  .list-person:not(:hover) .list-controller--inc {
+    transform: translate3d(-10px,-10px,0)
+  }
+
+  .list-controller--dec {
+    right: 0;
+    top: 0;
+  }
+
+  .list-person:not(:hover) .list-controller--dec {
+    transform: translate3d(-10px,10px,0)
+  }
+
+  .list-controller--rem {
+    top: -0.5rem;
+    left: -0.25rem;
+  }
+
+  .list-person:not(:hover) .list-controller--rem {
+    transform: translate3d(10px,0px,0)
+  }
+
 }
 
 .presentation {
@@ -241,6 +277,12 @@ svg.icon {
 .presentation h1 {
   font-size: 6rem;
   margin: 0 0 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .presentation h1 {
+    font-size: 3rem;
+  }
 }
 
 .presentation h3 {
