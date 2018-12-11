@@ -1,29 +1,56 @@
+<template>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
+  </div>
+</template>
+
+<style lang="scss">
 html {
   font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
   box-sizing: border-box;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-}
 
-@media screen and (max-width: 600px) {
-  html { font-size: 19px; }
-}
-@media (min-width: 1240px) {
-  html { font-size: 24px; }
-}
+  @media screen and (max-width: 600px) {
+    font-size: 19px;
+  }
 
-html *, html *:before, html *:after {
-  box-sizing: inherit;
-  transition: none 0.2s ease-in-out;
+  @media (min-width: 1240px) {
+    font-size: 24px;
+  }
+
+  * {
+    box-sizing: inherit;
+    transition: none 0.2s ease-in-out;
+    &:before, &:after {
+      box-sizing: inherit;
+      transition: none 0.2s ease-in-out;
+    }
+  }
 }
 
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	line-height: 1.25;
-	color: #37474F;
-	text-rendering: optimizeLegibility;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
+  line-height: 1.25;
+  color: #37474F;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -44,10 +71,7 @@ svg.icon {
   color: white;
   padding: 0.5em 0.75em;
   transition-property: transform, box-shadow;
-}
-
-.btn:hover {
-
+  &:hover {}
 }
 
 .btn-start {
@@ -55,13 +79,12 @@ svg.icon {
   padding: 0.5rem 1.25rem;
   text-transform: uppercase;
   background-color: #F44336;
-  box-shadow: 0 0 0 rgba(0,0,0,.5);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
   flex: 0 0 auto;
-}
-
-.btn-start:hover {
-  transform: translateY(-0.25em) scale(1.125, 1.125);
-  box-shadow: 0px 10px 14px rgba(0, 0, 0, .2);
+  &:hover {
+    transform: translateY(-0.25em) scale(1.125, 1.125);
+    box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .randomizr {
@@ -69,10 +92,8 @@ svg.icon {
   background-size: auto 150%;
   background-repeat: no-repeat;
   background-position: center;
-}
 
-@media screen and (max-width: 600px) {
-  .randomizr {
+  @media screen and (max-width: 600px) {
     background-image: url('https://images.unsplash.com/photo-1510284876186-b1a84b94418f?auto=format&fit=crop&w=1024&q=80');
     background-size: cover;
   }
@@ -85,14 +106,14 @@ svg.icon {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
 }
 
-.edit-list h1 {
-  font-size: 2rem;
-  margin-top: 0;
-}
-
-.form-addPerson {
+.form-addName {
   margin-bottom: 2rem;
   display: flex;
   flex: 0 0 auto;
@@ -118,10 +139,13 @@ svg.icon {
   border-bottom: 2px solid #CFD8DC;
   margin-right: 1rem;
   transition-property: border-color;
+  &:hover {
+    border-color: currentColor;
+  }
+  &:focus {
+    border-color: #F44336;
+  }
 }
-
-.form-name:hover { border-color: currentColor; }
-.form-name:focus { border-color: #F44336; }
 
 .list {
   max-width: 36rem;
@@ -135,7 +159,7 @@ svg.icon {
   }
 }
 
-.list-person {
+.list-name {
   width: 100%;
   padding: 0.5rem;
   position: relative;
@@ -144,7 +168,7 @@ svg.icon {
 }
 
 @media screen and (min-width: 601px) {
-  .list-person {
+  .list-name {
     width: 25%;
     padding: 0.5rem 1.5rem;
   }
@@ -181,12 +205,7 @@ svg.icon {
   background-color: whitesmoke;
 }
 
-.list-controller--inc:hover {
-  color: white;
-  background-color: #43A047;
-}
-
-.list-controller--dec:hover {
+.list-controller--inc:hover, .list-controller--dec:hover {
   color: white;
   background-color: #43A047;
 }
@@ -197,7 +216,6 @@ svg.icon {
 }
 
 @media screen and (min-width: 601px) {
-
   .list-controls {
     position: absolute;
     right: 0;
@@ -206,54 +224,43 @@ svg.icon {
     line-height: 0;
     z-index: 1;
   }
-
   [class*="list-controller"] {
     position: absolute;
     cursor: pointer;
     transition-property: all;
+    &:focus {
+      outline: 0;
+    }
+    &:hover {
+      color: white;
+      z-index: 1;
+    }
   }
-
-  [class*="list-controller"]:focus {
-    outline: 0;
-  }
-
-  [class*="list-controller"]:hover {
-    color: white;
-    z-index: 1;
-  }
-
-  .list-person:not(:hover) [class*="list-controller"] {
+  .list-name:not(:hover) [class*="list-controller"] {
     opacity: 0;
     visibility: hidden;
   }
-
   .list-controller--inc {
     right: 0;
     bottom: 0;
   }
-
-  .list-person:not(:hover) .list-controller--inc {
-    transform: translate3d(-10px,-10px,0)
+  .list-name:not(:hover) .list-controller--inc {
+    transform: translate3d(-10px, -10px, 0);
   }
-
   .list-controller--dec {
     right: 0;
     top: 0;
   }
-
-  .list-person:not(:hover) .list-controller--dec {
-    transform: translate3d(-10px,10px,0)
+  .list-name:not(:hover) .list-controller--dec {
+    transform: translate3d(-10px, 10px, 0);
   }
-
   .list-controller--rem {
     top: -0.5rem;
     left: -0.25rem;
   }
-
-  .list-person:not(:hover) .list-controller--rem {
-    transform: translate3d(10px,0px,0)
+  .list-name:not(:hover) .list-controller--rem {
+    transform: translate3d(10px, 0px, 0);
   }
-
 }
 
 .presentation {
@@ -263,29 +270,26 @@ svg.icon {
   align-items: center;
   height: 100vh;
   text-align: center;
-  text-shadow: 1rem 1rem 1rem rgba(0,0,0,0.5);
+  text-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
   color: white;
   padding: 2rem;
-
   background-image: url('https://images.unsplash.com/photo-1510547721131-2118691e1930?auto=format&fit=crop&w=1680&q=80');
   background-size: auto 150%;
   background-repeat: no-repeat;
   background-position: center;
 
-}
+  h1 {
+    font-size: 6rem;
+    margin: 0 0 1rem;
+    @media screen and (max-width: 600px) {
+      font-size: 3rem;
+    }
+  }
 
-.presentation h1 {
-  font-size: 6rem;
-  margin: 0 0 1rem;
-}
-
-@media screen and (max-width: 600px) {
-  .presentation h1 {
-    font-size: 3rem;
+  h3 {
+    font-size: 1.5rem;
+    margin: 0;
   }
 }
 
-.presentation h3 {
-  font-size: 1.5rem;
-  margin: 0;
-}
+</style>
