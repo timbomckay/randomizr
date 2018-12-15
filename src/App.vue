@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="randomizr">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -25,10 +25,8 @@ html {
 
   * {
     box-sizing: inherit;
-    transition: none 0.2s ease-in-out;
     &:before, &:after {
       box-sizing: inherit;
-      transition: none 0.2s ease-in-out;
     }
   }
 }
@@ -70,6 +68,8 @@ svg.icon {
   background-color: #F44336;
   color: white;
   padding: 0.5em 0.75em;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
   transition-property: transform, box-shadow;
   &:hover {}
 }
@@ -96,199 +96,6 @@ svg.icon {
   @media screen and (max-width: 600px) {
     background-image: url('https://images.unsplash.com/photo-1510284876186-b1a84b94418f?auto=format&fit=crop&w=1024&q=80');
     background-size: cover;
-  }
-}
-
-.edit-list {
-  height: 100vh;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h1 {
-    font-size: 2rem;
-    margin-top: 0;
-  }
-}
-
-.form-addName {
-  margin-bottom: 2rem;
-  display: flex;
-  flex: 0 0 auto;
-}
-
-.form-qty, .form-name {
-  border: 0;
-}
-
-.form-qty:focus, .form-name:focus {
-  outline: 0;
-}
-
-.form-qty {
-  font-size: 1rem;
-  width: 3em;
-  text-align: right;
-}
-
-.form-name {
-  font-size: 1rem;
-  font-weight: bold;
-  border-bottom: 2px solid #CFD8DC;
-  margin-right: 1rem;
-  transition-property: border-color;
-  &:hover {
-    border-color: currentColor;
-  }
-  &:focus {
-    border-color: #F44336;
-  }
-}
-
-.list {
-  max-width: 36rem;
-  margin-bottom: 2rem;
-  overflow: scroll;
-}
-
-@media screen and (max-width: 600px) {
-  .list {
-    overflow: scroll;
-  }
-}
-
-.list-name {
-  width: 100%;
-  padding: 0.5rem;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-@media screen and (min-width: 601px) {
-  .list-name {
-    width: 25%;
-    padding: 0.5rem 1.5rem;
-  }
-}
-
-.list-qty {
-  border: 0;
-  font-size: 0.75rem;
-  width: 2.5em;
-  text-align: right;
-  background-color: transparent;
-}
-
-@media screen and (max-width: 600px) {
-  .list-qty {
-    margin-right: 1rem;
-  }
-}
-
-.list-name {
-  font-weight: bold;
-  flex: 1;
-}
-
-[class*="list-controller"] {
-  border: 0;
-  height: 1rem;
-  width: 1rem;
-  line-height: 0;
-  border-radius: 100%;
-  text-align: center;
-  font-size: 0.5rem;
-  padding: 0;
-  background-color: whitesmoke;
-}
-
-.list-controller--inc:hover, .list-controller--dec:hover {
-  color: white;
-  background-color: #43A047;
-}
-
-.list-controller--rem:hover {
-  color: white;
-  background-color: #F44336;
-}
-
-@media screen and (min-width: 601px) {
-  .list-controls {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    line-height: 0;
-    z-index: 1;
-  }
-  [class*="list-controller"] {
-    position: absolute;
-    cursor: pointer;
-    transition-property: all;
-    &:focus {
-      outline: 0;
-    }
-    &:hover {
-      color: white;
-      z-index: 1;
-    }
-  }
-  .list-name:not(:hover) [class*="list-controller"] {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .list-controller--inc {
-    right: 0;
-    bottom: 0;
-  }
-  .list-name:not(:hover) .list-controller--inc {
-    transform: translate3d(-10px, -10px, 0);
-  }
-  .list-controller--dec {
-    right: 0;
-    top: 0;
-  }
-  .list-name:not(:hover) .list-controller--dec {
-    transform: translate3d(-10px, 10px, 0);
-  }
-  .list-controller--rem {
-    top: -0.5rem;
-    left: -0.25rem;
-  }
-  .list-name:not(:hover) .list-controller--rem {
-    transform: translate3d(10px, 0px, 0);
-  }
-}
-
-.presentation {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-  text-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 2rem;
-  background-image: url('https://images.unsplash.com/photo-1510547721131-2118691e1930?auto=format&fit=crop&w=1680&q=80');
-  background-size: auto 150%;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  h1 {
-    font-size: 6rem;
-    margin: 0 0 1rem;
-    @media screen and (max-width: 600px) {
-      font-size: 3rem;
-    }
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin: 0;
   }
 }
 

@@ -3,26 +3,18 @@
     <header class="header">
       <h1>Gifts Randomizr</h1>
     </header>
-    <div class="list">
-      <div v-for="(item, k) in list" class="list-name" :key="k" >
-        <input class="list-qty" type="number" name="quantity" min="1" placeholder="1"
+    <div :class="listClasses">
+      <div v-for="(item, k) in list" class="list-item" :key="k" >
+        <input class="list-qty" type="number" name="quantity" min="1" max="99" placeholder="1"
           v-model="item.count" />
-        <label class="list-name">{{ item.name }}</label>
-        <div class="list-controls">
-          <button class="list-controller--inc" @click="item.count++">
-            <svg class="icon"><use xlink:href="#plus" /></svg>
-          </button>
-          <button class="list-controller--dec" @click="item.count > 0 ? item.count-- : null">
-            <svg class="icon"><use xlink:href="#minus" /></svg>
-          </button>
-          <button class="list-controller--rem" @click="removeName(k)">
-            <svg class="icon"><use xlink:href="#close" /></svg>
-          </button>
-        </div>
+        <span class="list-name">{{ item.name }}</span>
+        <button class="list-item--remove" @click="removeName(k)">
+          <svg class="icon"><use xlink:href="#close" /></svg>
+        </button>
       </div>
     </div>
     <form class="form-addName" v-on:submit.prevent="addName">
-      <input class="form-qty" type="number" name="quantity" min="1" placeholder="1"
+      <input class="form-qty" type="number" name="quantity" min="1" max="99" placeholder="1"
         v-model="newName.count" />
       <input class="form-name" type="text" placeholder="Name" v-model="newName.name" />
       <input class="btn" type="submit" value="Add Name" />
@@ -83,6 +75,14 @@ export default {
       previous: [],
       presenting: false,
     };
+  },
+  computed: {
+    listClasses() {
+      return [
+        'list',
+        this.list.length < 4 ? `list-cols${this.list.length}` : '',
+      ];
+    },
   },
   watch: {
     list: {
@@ -184,3 +184,182 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+
+.btn-start {
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  text-transform: uppercase;
+  background-color: #F44336;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+  flex: 0 0 auto;
+  &:hover {
+    transform: translateY(-0.25em) scale(1.125, 1.125);
+    box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.edit-list {
+  height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+}
+
+.form-addName {
+  margin-bottom: 2rem;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.form-qty, .form-name {
+  border: 0;
+}
+
+.form-qty:focus, .form-name:focus {
+  outline: 0;
+}
+
+.form-qty {
+  font-size: 1rem;
+  width: 3em;
+  text-align: right;
+}
+
+.form-name {
+  font-size: 1rem;
+  font-weight: bold;
+  border-bottom: 2px solid #CFD8DC;
+  margin-right: 1rem;
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover {
+    border-color: currentColor;
+  }
+
+  &:focus {
+    border-color: #F44336;
+  }
+}
+
+.list {
+  width: 100%;
+  max-width: 36rem;
+  margin-bottom: 3rem;
+  overflow-y: scroll;
+
+  @media screen and (min-width: 400px) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    position: relative;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+
+    @media screen and (min-width: 400px) {
+      flex: 0 0 50%;
+    }
+
+    @media screen and (min-width: 540px) {
+      flex-basis: 33%;
+    }
+
+    @media screen and (min-width: 680px) {
+      flex-basis: 25%;
+    }
+  }
+
+  &-qty {
+    border: 0;
+    font-size: 0.75rem;
+    flex: 0 0 2.5em;
+    margin-right: 0.5rem;
+    text-align: right;
+    background-color: transparent;
+  }
+}
+
+.list-name {
+  flex: 1;
+}
+
+.list-item--remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 0.675rem;
+  border: 0;
+  color: #ccc;
+  background-color: transparent;
+
+  @media screen and (min-width: 540px) {
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+    transition-property: color, background-color, visibility, opacity;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      color: white;
+      background-color: #F44336;
+    }
+
+    .list-item:hover & {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+}
+
+.presentation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  text-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 2rem;
+  background-image: url('https://images.unsplash.com/photo-1510547721131-2118691e1930?auto=format&fit=crop&w=1680&q=80');
+  background-size: auto 150%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  h1 {
+    font-size: 6rem;
+    margin: 0 0 1rem;
+    @media screen and (max-width: 600px) {
+      font-size: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+}
+
+</style>
