@@ -1,4 +1,6 @@
 // vue.config.js
 module.exports = {
-  baseUrl: '/randomizr/'
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/randomizr/'
+    : '/',
 }

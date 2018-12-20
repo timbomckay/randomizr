@@ -9,6 +9,7 @@
 </template>
 
 <style lang="scss">
+#nav { display: none; }
 html {
   font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
   box-sizing: border-box;

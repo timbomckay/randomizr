@@ -1,5 +1,5 @@
 <template>
-  <section class="edit-list" v-if="!presenting">
+  <section v-if="!presenting" class="edit-list">
     <header class="header">
       <h1>Gifts Randomizr</h1>
     </header>
@@ -21,7 +21,9 @@
     </form>
     <button @click="startPresentation" class="btn btn-start">Start</button>
   </section>
-  <section class="presentation" v-else-if="presenting" @click="next">
+  <section v-else-if="presenting" class="presentation" tabindex="-1"
+    @keydown="keyPressed" @click="next">
+    <snow />
     <div v-if="bowl.length">
       <h1>{{ list[bowl[0]].name }}</h1>
       <h3 v-if="list[bowl[0]] && list[bowl[0]].count">{{ list[bowl[0]].count }} Gifts Remaining</h3>
@@ -38,6 +40,7 @@
 // @ is an alias to /src
 // import list from '@/components/list.vue';
 // import presentation from '@/components/presentation.vue';
+import snow from '@/components/snow.vue';
 
 // function exitFullscreen() {
 //   if (document.exitFullscreen) {
@@ -63,6 +66,7 @@ export default {
   components: {
     // list,
     // presentation,
+    snow,
   },
   data() {
     return {
@@ -134,6 +138,7 @@ export default {
       }
     },
     addName() {
+      // TODO: Focus name input after submission
       if (this.newName.name.trim()) {
         this.list.push({
           id: this.guid(),
@@ -153,8 +158,9 @@ export default {
     },
     startPresentation() {
       const cards = [];
+      const vm = this;
       // for each name in list
-      this.list.forEach((item, index) => {
+      vm.list.forEach((item, index) => {
         // while in count
         for (let i = 0; i < item.count; i += 1) {
           // add item to bowl
@@ -162,13 +168,17 @@ export default {
         }
       });
       // shuffle cards and put in bowl
-      this.bowl = this.shuffle(cards);
+      vm.bowl = vm.shuffle(cards);
       // begin presentation
-      this.presenting = true;
+      vm.presenting = true;
       // decrement first pick
-      this.list[this.bowl[0]].count -= 1;
+      vm.list[vm.bowl[0]].count -= 1;
       // launch fullscreen
-      this.launchFullscreen(document.documentElement);
+      vm.launchFullscreen(document.documentElement);
+
+      setTimeout(function () { // eslint-disable-line
+        vm.$el.focus();
+      }, 250);
     },
     next() {
       // remove from bowl
@@ -179,6 +189,15 @@ export default {
       if (this.bowl.length) {
         const next = this.bowl[0];
         this.list[next].count -= 1;
+      }
+    },
+    keyPressed(e) {
+      switch (e.key) {
+        case 'Escape':
+          this.presenting = false;
+          break;
+        default:
+          this.next();
       }
     },
   },
