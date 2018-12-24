@@ -17,22 +17,28 @@
       <input class="form-qty" type="number" name="quantity" min="1" max="99" placeholder="1"
         v-model="newName.count" />
       <input class="form-name" type="text" placeholder="Name" v-model="newName.name" />
-      <input class="btn" type="submit" value="Add Name" />
+      <button class="btn" type="submit">
+        Add Name
+      </button>
     </form>
     <button @click="startPresentation" class="btn btn-start">Start</button>
   </section>
   <section v-else-if="presenting" class="presentation" tabindex="-1"
     @keydown="keyPressed" @click="next">
     <snow />
-    <div v-if="bowl.length">
-      <h1>{{ list[bowl[0]].name }}</h1>
-      <h3 v-if="list[bowl[0]] && list[bowl[0]].count">{{ list[bowl[0]].count }} Gifts Remaining</h3>
-      <h3 v-else>Last One, Make It Count</h3>
-    </div>
-    <div v-else>
-      <h1>Merry Christmas</h1>
-      <h3>The End</h3>
-    </div>
+    <transition appear name="slide-fade">
+      <div class="presentation-display" v-if="bowl.length" :key="bowl.length">
+        <h1>{{ list[bowl[0]].name }}</h1>
+        <h3 v-if="list[bowl[0]] && list[bowl[0]].count">
+          {{ list[bowl[0]].count }} Gifts Remaining
+        </h3>
+        <h3 v-else>Last One, Make It Count</h3>
+      </div>
+      <div class="presentation-display" v-else>
+        <h1>Merry Christmas</h1>
+        <h3>The End</h3>
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -237,6 +243,21 @@ export default {
   margin-bottom: 2rem;
   display: flex;
   flex: 0 0 auto;
+  width: 100%;
+  max-width: 25rem;
+
+  @media screen and (max-width: 460px) {
+    .btn {
+      font-size: 0;
+      padding: 0.6rem 0.5rem 0.5rem;
+      line-height: 0;
+
+      &:after {
+        content: "+";
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 .form-qty, .form-name {
@@ -249,15 +270,21 @@ export default {
 
 .form-qty {
   font-size: 1rem;
-  width: 3em;
+  width: 2em;
   text-align: right;
+
+  @media screen and (min-width: 460px) {
+    width: 3em;
+  }
 }
 
 .form-name {
   font-size: 1rem;
   font-weight: bold;
   border-bottom: 2px solid #CFD8DC;
+  margin-left: 0.5rem;
   margin-right: 1rem;
+  flex: 1 1 auto;
   transition: border-color 0.2s ease-in-out;
 
   &:hover {
@@ -291,16 +318,12 @@ export default {
     padding-bottom: 0.5rem;
     padding-right: 0.5rem;
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 460px) {
       flex: 0 0 50%;
     }
 
-    @media screen and (min-width: 540px) {
-      flex-basis: 33%;
-    }
-
-    @media screen and (min-width: 680px) {
-      flex-basis: 25%;
+    @media screen and (min-width: 640px) {
+      flex-basis: 33.33%;
     }
   }
 
@@ -366,9 +389,14 @@ export default {
   background-size: auto 150%;
   background-repeat: no-repeat;
   background-position: center;
+  overflow: hidden;
+  position: relative;
 
   h1 {
-    font-size: 6rem;
+    font-family: 'Mountains of Christmas';
+    font-size: 8rem;
+    font-weight: normal;
+    line-height: 1;
     margin: 0 0 1rem;
     @media screen and (max-width: 600px) {
       font-size: 3rem;
@@ -379,6 +407,28 @@ export default {
     font-size: 1.5rem;
     margin: 0;
   }
+}
+
+.presentation-display {
+  position: absolute;
+  max-width: calc(100% - 4rem);
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  transition-property: opacity, visibility, transform;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
+  visibility: hidden;
+}
+.slide-fade-enter {
+  transform: scale(5, 5) translateY(20vh);
+}
+.slide-fade-leave-to {
+  transform: scale(0.5, 0.5) translateY(-50vh);
 }
 
 </style>

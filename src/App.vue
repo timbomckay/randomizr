@@ -10,6 +10,7 @@
 
 <style lang="scss">
 #nav { display: none; }
+
 html {
   font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
   box-sizing: border-box;
@@ -69,10 +70,14 @@ svg.icon {
   background-color: #F44336;
   color: white;
   padding: 0.5em 0.75em;
+  flex: 0 0 auto;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-property: transform, box-shadow;
-  &:hover {}
+
+  &:hover {
+
+  }
 }
 
 .btn-start {
