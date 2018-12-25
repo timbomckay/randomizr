@@ -5,7 +5,7 @@
     </header>
     <div :class="listClasses">
       <div v-for="(item, k) in list" class="list-item" :key="k" >
-        <input class="list-qty" type="number" name="quantity" min="1" max="99" placeholder="1"
+        <input class="list-qty" type="number" name="quantity" min="0" max="99" placeholder="1"
           v-model="item.count" />
         <span class="list-name">{{ item.name }}</span>
         <button class="list-item--remove" @click="removeName(k)">
@@ -300,7 +300,7 @@ export default {
   width: 100%;
   max-width: 36rem;
   margin-bottom: 3rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @media screen and (min-width: 400px) {
     display: flex;
