@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/randomizr/js/about.ec1e39f7.js"
   },
   {
-    "revision": "52c4c2fcee7c5e144c00",
-    "url": "/randomizr/css/app.bd9e1f5e.css"
+    "revision": "e1a266b4d482750cd926",
+    "url": "/randomizr/css/app.d0e0a1c2.css"
   },
   {
-    "revision": "52c4c2fcee7c5e144c00",
-    "url": "/randomizr/js/app.c041f642.js"
+    "revision": "e1a266b4d482750cd926",
+    "url": "/randomizr/js/app.79f5a96c.js"
   },
   {
     "revision": "d1ade9f480668b332e60",
     "url": "/randomizr/js/chunk-vendors.ceb91ddc.js"
   },
   {
-    "revision": "6f2d3091328e72c5f8140d2660d26120",
+    "revision": "40ccb742990b0b0683aa334bce5d88b4",
     "url": "/randomizr/index.html"
   },
   {
