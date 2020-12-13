@@ -1,18 +1,50 @@
 <template>
-  <Home class="randomizr" />
+  <component
+    :is="presenting ? 'Presentation' : 'Entries'"
+    class="bg-center bg-no-repeat edit-list grid h-screen outline-none p-8 place-content-center randomizr relative"
+    @close="presenting = false"
+    @present="launchFullscreen"
+  />
 </template>
 
 <script>
-import Home from './views/Home.vue';
+import Entries from './components/Entries.vue';
+import Presentation from './components/presentation.vue';
 
 export default {
+  name: 'home',
   components: {
-    Home,
+    Entries,
+    Presentation,
+  },
+  data() {
+    return {
+      presenting: false,
+    };
+  },
+  methods: {
+    launchFullscreen() {
+      this.presenting = true;
+
+      const element = document.documentElement;
+
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss">
+@tailwind base;
+
 html {
   font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
   box-sizing: border-box;
@@ -56,38 +88,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+@tailwind components;
+@tailwind utilities;
+
+.randomizr {
+  background-size: auto 150%;
+
+  @media screen and (max-width: 600px) {
+    background-size: cover;
+  }
+}
+
 svg.icon {
   fill: currentColor;
   height: 1em;
   width: 1em;
-}
-
-.btn {
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 0.75rem;
-  display: inline-block;
-  border: 0;
-  border-radius: 3px;
-  background-color: #F44336;
-  color: white;
-  padding: 0.5em 0.75em;
-  flex: 0 0 auto;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  transition-property: transform, box-shadow;
-}
-
-.btn-start {
-  font-size: 1rem;
-  padding: 0.5rem 1.25rem;
-  text-transform: uppercase;
-  background-color: #F44336;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
-  flex: 0 0 auto;
-  &:hover {
-    transform: translateY(-0.25em) scale(1.125, 1.125);
-    box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
-  }
 }
 </style>

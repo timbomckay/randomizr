@@ -1,31 +1,42 @@
 <template>
   <section
-    class="presentation"
+    class="presentation bg-red-800 text-white text-center"
     tabindex="-1"
     @keydown="handleKeydown"
     @click="handleClick"
+    style="background-image: url('/img/christmas/rawpixel-com-445814-min.jpg');"
   >
     <SnowOverlay />
     <transition appear name="slide-fade">
       <div
         v-if="remaining && identity"
         :key="remaining"
-        class="presentation-display"
+        class="absolute presentation-display px-16 py-4 top-1/2 w-full"
       >
-        <h1 v-text="identity.name"></h1>
-        <h3 v-text="identity.count > 0
-          ? `${identity.count} Gifts Remaining`
-          : 'Last One, Make It Count'"
+        <h1
+          v-text="identity.name"
+          class="mb-4 text-9xl"
+          style="font-family: 'Mountains of Christmas';"
+        ></h1>
+        <h3
+          class="text-2xl font-semibold"
+          v-text="identity.count > 0
+            ? `${identity.count} Gifts Remaining`
+            : 'Last One, Make It Count'"
         ></h3>
       </div>
-      <div class="presentation-display" v-else>
-        <h1>Merry Christmas</h1>
-        <h3>The End</h3>
+      <div class="absolute presentation-display px-16 py-4 top-1/2 w-full" v-else>
+        <h1
+          v-text="'Merry Christmas'"
+          class="mb-4 text-9xl"
+          style="font-family: 'Mountains of Christmas';"
+        ></h1>
+        <h3 class="text-2xl font-bold" v-text="'The End'"></h3>
       </div>
     </transition>
     <div
       v-if="remaining"
-      class="info-bar"
+      class="bg-black bg-opacity-60 bottom-0 fixed flex font-bold justify-between left-0 px-4 py-2 text-xs w-full"
     >
       <Clock />
       <span v-text="`${ history.length } / ${ remaining + history.length }`"></span>
@@ -165,59 +176,9 @@ export default {
 </script>
 
 <style lang="scss">
-.presentation {
-  background-color: brown;
-  background-image: url('/img/christmas/rawpixel-com-445814-min.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: auto 150%;
-  color: white;
-  display: grid;
-  height: 100vh;
-  overflow: hidden;
-  padding: 2rem;
-  place-content: center;
-  position: relative;
-  text-align: center;
-  text-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
-
-  h1 {
-    font-family: 'Mountains of Christmas';
-    font-size: 8rem;
-    font-weight: normal;
-    line-height: 1;
-    margin: 0 0 1rem;
-    @media screen and (max-width: 600px) {
-      font-size: 3rem;
-    }
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-}
-
 .presentation-display {
-  width: 100%;
-  padding: 1rem 4rem;
-  position: absolute;
-  top: 50%;
   transform: translateY(-50%);
   transform-origin: center;
-}
-
-.info-bar {
-  background-color: rgba(0,0,0,0.5);
-  bottom: 0;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: bold;
-  justify-content: space-between;
-  left: 0;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  right: 0;
 }
 
 .slide-fade-enter-active,
@@ -226,7 +187,8 @@ export default {
   // transition-timing-function: ease-in-out;
   transition-property: opacity, visibility, transform;
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   opacity: 0;
   visibility: hidden;
 }

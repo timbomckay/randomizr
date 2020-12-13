@@ -1,21 +1,21 @@
 <template>
-  <form class="form-addName" @submit.prevent="addName">
+  <form class="flex max-w-sm mb-8 mx-auto w-full" @submit.prevent="addName">
     <input
-      class="form-qty"
+      class="text-right"
       max="99"
       min="1"
       type="number"
       v-model="count"
     />
     <input
-      class="form-name"
+      class="border-b-2 flex-auto focus:border-red-600 font-bold hover:border-current ml-2 mr-4 outline-none transition-colors"
       placeholder="Name"
+      ref="name"
       type="text"
       v-model="name"
-      ref="name"
     />
     <button
-      class="btn"
+      class="bg-red-600 font-bold hover:bg-red-800 inline-block px-2.5 py-1 rounded text-white text-xs tracking-tight"
       type="submit"
       v-text="'Add Name'"
     ></button>
@@ -60,62 +60,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.form-addName {
-  margin-bottom: 2rem;
-  display: flex;
-  flex: 0 0 auto;
-  width: 100%;
-  max-width: 25rem;
-
-  @media screen and (max-width: 460px) {
-    .btn {
-      font-size: 0;
-      padding: 0.6rem 0.5rem 0.5rem;
-      line-height: 0;
-
-      &:after {
-        content: "+";
-        font-size: 1rem;
-      }
-    }
-  }
-}
-
-.form-qty, .form-name {
-  border: 0;
-}
-
-.form-qty:focus, .form-name:focus {
-  outline: 0;
-}
-
-.form-qty {
-  font-size: 1rem;
-  width: 2em;
-  text-align: right;
-
-  @media screen and (min-width: 460px) {
-    width: 3em;
-  }
-}
-
-.form-name {
-  font-size: 1rem;
-  font-weight: bold;
-  border-bottom: 2px solid #CFD8DC;
-  margin-left: 0.5rem;
-  margin-right: 1rem;
-  flex: 1 1 auto;
-  transition: border-color 0.2s ease-in-out;
-
-  &:hover {
-    border-color: currentColor;
-  }
-
-  &:focus {
-    border-color: #F44336;
-  }
-}
-</style>

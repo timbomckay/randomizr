@@ -1,16 +1,17 @@
 <template>
-  <section class="edit-list">
-    <header class="header">
-      <h1><span v-text="total" class="total-gifts"></span> Gifts Randomizr</h1>
-    </header>
-    <div class="list" :class="{ [`list-cols${list.length}`]: list.length < 4 }">
+  <section style="background-image: url('/img/christmas/caley-dimmock-442468.jpg');">
+    <h1 class="font-extrabold mb-6 text-4xl text-center tracking-tight">
+      <span v-text="total" class="-rotate-6 bg-red-600 inline-block pb-1.5 pt-1 px-2.5 rounded scale-90 text-white total-gifts transform translate-y-0.5"></span>
+      Gifts Randomizr
+    </h1>
+    <div class="font-bold gap-4 grid mb-10 md:grid-cols-3 mt-4 sm:grid-cols-2">
       <div
         v-for="(item, id, index) in list"
-        class="list-item"
+        class="flex items-center"
         :key="index"
       >
         <input
-          class="list-qty"
+          class="bg-transparent list-qty text-right text-xs"
           type="number"
           name="quantity"
           min="0"
@@ -18,19 +19,21 @@
           placeholder="1"
           v-model="item.count"
         />
-        <span class="list-name">{{ item.name }}</span>
-        <button class="list-item--remove" @click="removeName(id)">
-          <svg class="icon"><use xlink:href="#close" /></svg>
+        <span class="flex-1 mx-2" v-text="item.name"></span>
+        <button class="grid h-4 hover:bg-red-500 hover:text-white focus:bg-red-500 focus:text-white remove md:invisible md:opacity-0 place-content-center rounded-full text-gray-300 text-xs transition-all w-4" @click="removeName(id)">
+          <svg class="icon" viewBox="0 0 512 512"><path d="M443.6 387.1L312.4 255.4l131.5-130c5.4-5.4 5.4-14.2 0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L256 197.8 124.9 68.3c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L68 105.9c-5.4 5.4-5.4 14.2 0 19.6l131.5 130L68.4 387.1c-2.6 2.6-4.1 6.1-4.1 9.8 0 3.7 1.4 7.2 4.1 9.8l37.4 37.6c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1L256 313.1l130.7 131.1c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1l37.4-37.6c2.6-2.6 4.1-6.1 4.1-9.8-.1-3.6-1.6-7.1-4.2-9.7z"></path></svg>
         </button>
       </div>
     </div>
     <NewEntry @push="addName($event)" />
-    <button
-      @click="$emit('present')"
-      class="btn btn-start"
-      type="button"
-      v-text="'Start'"
-    ></button>
+    <div class="text-center">
+      <button
+        @click="$emit('present')"
+        class="bg-red-600 btn--enlarge font-bold inline-block px-5 py-2 rounded text-white tracking-tight"
+        type="button"
+        v-text="'Start'"
+      ></button>
+    </div>
   </section>
 </template>
 
@@ -85,127 +88,22 @@ export default {
 </script>
 
 <style lang="scss">
+.btn--enlarge {
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-property: transform, box-shadow;
 
-.btn-start {
-  font-size: 1rem;
-  padding: 0.5rem 1.25rem;
-  text-transform: uppercase;
-  background-color: #F44336;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
-  flex: 0 0 auto;
   &:hover {
     transform: translateY(-0.25em) scale(1.125, 1.125);
     box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
   }
 }
 
-.edit-list {
-  background-image: url('/img/christmas/caley-dimmock-442468.jpg');
-  background-size: auto 150%;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media screen and (max-width: 600px) {
-    background-size: cover;
+.remove {
+  :hover > &,
+  :focus-within > & {
+    opacity: 1;
+    visibility: visible;
   }
-
-  h1 {
-    font-size: 2rem;
-    margin-top: 0;
-  }
-}
-
-.list {
-  width: 100%;
-  max-width: 36rem;
-  margin-bottom: 3rem;
-  overflow-y: auto;
-
-  @media screen and (min-width: 400px) {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  &-item {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    width: 100%;
-    position: relative;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-right: 0.5rem;
-
-    @media screen and (min-width: 460px) {
-      flex: 0 0 50%;
-    }
-
-    @media screen and (min-width: 640px) {
-      flex-basis: 33.33%;
-    }
-  }
-
-  &-qty {
-    border: 0;
-    font-size: 0.75rem;
-    flex: 0 0 2.5em;
-    margin-right: 0.5rem;
-    text-align: right;
-    background-color: transparent;
-  }
-}
-
-.list-name {
-  flex: 1;
-}
-
-.list-item--remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 50%;
-  padding: 0;
-  font-size: 0.675rem;
-  border: 0;
-  color: #ccc;
-  background-color: transparent;
-
-  @media screen and (min-width: 540px) {
-    opacity: 0;
-    visibility: hidden;
-    cursor: pointer;
-    transition-property: color, background-color, visibility, opacity;
-    transition-duration: 0.1s;
-    transition-timing-function: ease-in-out;
-
-    &:hover {
-      color: white;
-      background-color: #F44336;
-    }
-
-    .list-item:hover & {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-}
-
-.total-gifts {
-  padding: 0.4rem 0.6rem;
-  background-color: #F44336;
-  color: white;
-  transform: scale(0.9) rotate(-6deg) translateY(3px);
-  display: inline-block;
-  border-radius: 4px;
 }
 </style>
