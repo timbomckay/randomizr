@@ -1,27 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "0937500d37b67ef53848",
-    "url": "/randomizr/js/about.ec1e39f7.js"
+    "revision": "d65d0d257b12eb0cd757",
+    "url": "/randomizr/css/app.077379b7.css"
   },
   {
-    "revision": "e1a266b4d482750cd926",
-    "url": "/randomizr/css/app.d0e0a1c2.css"
+    "revision": "d65d0d257b12eb0cd757",
+    "url": "/randomizr/js/app.e836aaf6.js"
   },
   {
-    "revision": "e1a266b4d482750cd926",
-    "url": "/randomizr/js/app.79f5a96c.js"
+    "revision": "b4fed42944851eb60b1d",
+    "url": "/randomizr/js/chunk-vendors.4272d62b.js"
   },
   {
-    "revision": "d1ade9f480668b332e60",
-    "url": "/randomizr/js/chunk-vendors.ceb91ddc.js"
-  },
-  {
-    "revision": "40ccb742990b0b0683aa334bce5d88b4",
+    "revision": "2f2e07f876e73c116b15004b16eed7ba",
     "url": "/randomizr/index.html"
-  },
-  {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
-    "url": "/randomizr/robots.txt"
   },
   {
     "revision": "ec3bd306c92f453e50ff96e9d8879395",
@@ -46,6 +38,10 @@ self.__precacheManifest = [
   {
     "revision": "666c50e46a2ecfa44aeb2800f06bfe74",
     "url": "/randomizr/img/christmas/annie-spratt-176628.jpg"
+  },
+  {
+    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "url": "/randomizr/robots.txt"
   },
   {
     "revision": "6b79cbf08a78b9f4cb7c8af29e9dd1bb",

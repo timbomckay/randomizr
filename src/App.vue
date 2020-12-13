@@ -1,16 +1,18 @@
 <template>
-  <div id="app" class="randomizr">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <Home class="randomizr" />
 </template>
 
-<style lang="scss">
-#nav { display: none; }
+<script>
+import Home from './views/Home.vue';
 
+export default {
+  components: {
+    Home,
+  },
+};
+</script>
+
+<style lang="scss">
 html {
   font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
   box-sizing: border-box;
@@ -74,10 +76,6 @@ svg.icon {
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-property: transform, box-shadow;
-
-  &:hover {
-
-  }
 }
 
 .btn-start {
@@ -92,17 +90,4 @@ svg.icon {
     box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
   }
 }
-
-.randomizr {
-  background-image: url('https://images.unsplash.com/photo-1510284876186-b1a84b94418f?auto=format&fit=crop&w=1680&q=80');
-  background-size: auto 150%;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  @media screen and (max-width: 600px) {
-    background-image: url('https://images.unsplash.com/photo-1510284876186-b1a84b94418f?auto=format&fit=crop&w=1024&q=80');
-    background-size: cover;
-  }
-}
-
 </style>

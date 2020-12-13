@@ -1,5 +1,5 @@
 <template>
-  <canvas id="snow" class="snow"></canvas>
+  <canvas id="snow" style="position:absolute;height:100%;width:100%;"></canvas>
 </template>
 
 <script>
@@ -128,11 +128,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.snow {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-</style>

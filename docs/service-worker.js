@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/randomizr/precache-manifest.37153250b59092f76598bccbb25055c9.js"
+  "/randomizr/precache-manifest.98e818da4e09937adc809b3b635efcbe.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "randomizr"});
