@@ -1,4 +1,7 @@
 module.exports = {
+  purge: [
+    './src/**/*.vue',
+  ],
   theme: {
     screens: {
       sm: `${640/16}rem`, // => @media (min-width: 40rem) { ... }
