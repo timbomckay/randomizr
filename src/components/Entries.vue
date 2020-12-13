@@ -1,5 +1,5 @@
 <template>
-  <section style="background-image: url('/img/christmas/caley-dimmock-442468.jpg');">
+  <section style="background-image: url('./img/christmas/caley-dimmock-442468.jpg');">
     <h1 class="font-extrabold mb-6 text-4xl text-center tracking-tight">
       <span v-text="total" class="-rotate-6 bg-red-600 inline-block pb-1.5 pt-1 px-2.5 rounded scale-90 text-white total-gifts transform translate-y-0.5"></span>
       Gifts Randomizr

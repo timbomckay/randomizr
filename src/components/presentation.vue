@@ -4,7 +4,7 @@
     tabindex="-1"
     @keydown="handleKeydown"
     @click="handleClick"
-    style="background-image: url('/img/christmas/rawpixel-com-445814-min.jpg');"
+    style="background-image: url('./img/christmas/rawpixel-com-445814-min.jpg');"
   >
     <SnowOverlay />
     <transition appear name="slide-fade">
