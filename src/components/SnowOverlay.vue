@@ -3,9 +3,6 @@
 </template>
 
 <script>
-// Load the core build.
-const _ = require('lodash');
-
 export default {
   mounted() {
     const animFrame = window.requestAnimationFrame
@@ -25,18 +22,18 @@ export default {
       const { radius, speed, wind, color } = options; // eslint-disable-line
       const params = {
         color,
-        x: _.random(0, canvas.offsetWidth),
-        y: _.random(-canvas.offsetHeight, 0),
-        radius: _.random(...radius),
-        speed: _.random(...speed),
-        wind: _.random(...wind),
+        x: this.random(0, canvas.offsetWidth),
+        y: this.random(-canvas.offsetHeight, 0),
+        radius: this.random(...radius),
+        speed: this.random(...speed),
+        wind: this.random(...wind),
         isResized: false,
       };
       const ctx = canvas.getContext('2d');
 
       const updateData = () => {
-        params.x = _.random(0, canvas.offsetWidth);
-        params.y = _.random(-canvas.offsetHeight, 0);
+        params.x = this.random(0, canvas.offsetWidth);
+        params.y = this.random(-canvas.offsetHeight, 0);
       };
 
       const resized = () => params.isResized = true; // eslint-disable-line
@@ -66,7 +63,7 @@ export default {
           params.isResized = false;
         } else {
           params.y = 0;
-          params.x = _.random(0, canvas.offsetWidth);
+          params.x = this.random(0, canvas.offsetWidth);
         }
       };
 
@@ -88,18 +85,17 @@ export default {
 
       const add = item => snowflakes.push(item(canvas));
 
-      const update = () => _.forEach(snowflakes, el => el.update());
+      const update = () => snowflakes.forEach(el => el.update());
 
       const resize = () => {
         ctx.canvas.width = canvas.offsetWidth;
         ctx.canvas.height = canvas.offsetHeight;
-
-        _.forEach(snowflakes, el => el.resized());
+        snowflakes.forEach(el => el.resized());
       };
 
       const draw = () => {
         ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-        _.forEach(snowflakes, el => el.draw());
+        snowflakes.forEach(el => el.draw());
       };
 
       const events = () => {
@@ -113,7 +109,7 @@ export default {
       };
 
       const init = () => {
-        _.times(count, () => add(canvas => new SnowItem(canvas))); // eslint-disable-line
+        Array.from({ length: count }, () => add(canvas => new SnowItem(canvas))); // eslint-disable-line
         events();
         loop();
       };
@@ -126,5 +122,12 @@ export default {
 
     Snow(this.$el, 150);
   },
+  methods: {
+    random(a = 1, b = 0) {
+      const lower = Math.min(a, b);
+      const upper = Math.max(a, b);
+      return lower + Math.random() * (upper - lower);
+    },
+  }
 };
 </script>
