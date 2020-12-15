@@ -173,8 +173,7 @@ export default {
   transform-origin: center;
 
   h1 {
-    font-family: 'ff4';
-    font-family: 'ff5';
+    font-family: 'The Perfect Christmas';
     font-size: 22.5vw;
     line-height: 0.75;
   }

@@ -43,16 +43,6 @@ export default {
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: "ff4";
-  src: url("/fonts/Snowballs.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "ff5";
-  src: url("/fonts/The Perfect Christmas.woff2") format("woff2");
-}
-
 @tailwind base;
 
 html {
