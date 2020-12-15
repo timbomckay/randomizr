@@ -4,7 +4,7 @@
     tabindex="-1"
     @keydown="handleKeydown"
     @click="handleClick"
-    style="background-image: url('./img/christmas/rawpixel-com-445814-min.jpg');"
+    style="background-image: url('./img/christmas/red-bg.jpg');"
   >
     <SnowOverlay />
     <transition appear name="slide-fade">
@@ -13,11 +13,7 @@
         :key="remaining"
         class="absolute presentation-display px-16 py-4 top-1/2 w-full"
       >
-        <h1
-          v-text="identity.name"
-          class="mb-4 text-9xl"
-          style="font-family: 'Mountains of Christmas';"
-        ></h1>
+        <h1 v-text="identity.name" class="mb-6 text-9xl"></h1>
         <h3
           class="text-2xl font-semibold"
           v-text="identity.count > 0
@@ -26,12 +22,8 @@
         ></h3>
       </div>
       <div class="absolute presentation-display px-16 py-4 top-1/2 w-full" v-else>
-        <h1
-          v-text="'Merry Christmas'"
-          class="mb-4 text-9xl"
-          style="font-family: 'Mountains of Christmas';"
-        ></h1>
-        <h3 class="text-2xl font-bold" v-text="'The End'"></h3>
+        <h1 v-text="'Merry Christmas'" class="mb-4 text-9xl"></h1>
+        <h3 v-text="'The End'" class="text-2xl font-bold"></h3>
       </div>
     </transition>
     <div
@@ -179,6 +171,13 @@ export default {
 .presentation-display {
   transform: translateY(-50%);
   transform-origin: center;
+
+  h1 {
+    font-family: 'ff4';
+    font-family: 'ff5';
+    font-size: 22.5vw;
+    line-height: 0.75;
+  }
 }
 
 .slide-fade-enter-active,
@@ -189,13 +188,13 @@ export default {
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
-  opacity: 0;
+  // opacity: 0;
   visibility: hidden;
 }
 .slide-fade-enter {
-  transform: scale(4, 4) translateY(100vh);
+  transform: translateY(100vh);
 }
 .slide-fade-leave-to {
-  transform: scale(0.5, 0.5) translateY(-100vh);
+  transform: translateY(-100vh);
 }
 </style>

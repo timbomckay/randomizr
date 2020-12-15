@@ -1,14 +1,14 @@
 <template>
-  <form class="flex max-w-sm mb-8 mx-auto w-full" @submit.prevent="addName">
+  <form class="flex max-w-sm mx-auto w-full" @submit.prevent="addName">
     <input
-      class="text-right"
+      class="bg-transparent text-right"
       max="99"
       min="1"
       type="number"
       v-model="count"
     />
     <input
-      class="border-b-2 flex-auto focus:border-red-600 font-bold hover:border-current ml-2 mr-4 outline-none transition-colors"
+      class="bg-transparent border-b-2 flex-auto focus:border-red-600 font-bold hover:border-current ml-2 mr-4 outline-none transition-colors"
       placeholder="Name"
       ref="name"
       type="text"

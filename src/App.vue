@@ -1,7 +1,7 @@
 <template>
   <component
     :is="presenting ? 'Presentation' : 'Entries'"
-    class="bg-center bg-no-repeat edit-list grid h-screen outline-none p-8 place-content-center randomizr relative"
+    class="bg-center bg-cover bg-no-repeat edit-list grid h-screen outline-none place-content-center randomizr relative"
     @close="presenting = false"
     @present="launchFullscreen"
   />
@@ -43,6 +43,16 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: "ff4";
+  src: url("/fonts/Snowballs.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ff5";
+  src: url("/fonts/The Perfect Christmas.woff2") format("woff2");
+}
+
 @tailwind base;
 
 html {
@@ -90,14 +100,6 @@ body {
 
 @tailwind components;
 @tailwind utilities;
-
-.randomizr {
-  background-size: auto 150%;
-
-  @media screen and (max-width: 600px) {
-    background-size: cover;
-  }
-}
 
 svg.icon {
   fill: currentColor;
