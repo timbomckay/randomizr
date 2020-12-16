@@ -9,7 +9,7 @@
     <SnowOverlay />
     <transition appear name="slide-fade">
       <div
-        v-if="remaining && identity"
+        v-if="identity"
         :key="remaining"
         class="absolute presentation-display px-16 py-4 top-1/2 w-full"
       >
@@ -27,7 +27,7 @@
       </div>
     </transition>
     <div
-      v-if="remaining"
+      v-if="identity"
       class="bg-black bg-opacity-60 bottom-0 fixed flex font-bold justify-between left-0 px-4 py-2 text-xs w-full"
     >
       <Clock />
@@ -97,7 +97,11 @@ export default {
   methods: {
     draw() {
       const { bowl } = this;
-      if (bowl.length < 1) return;
+
+      if (bowl.length < 1) {
+        this.active = null;
+        return;
+      }
 
       this.previous = this.active;
 

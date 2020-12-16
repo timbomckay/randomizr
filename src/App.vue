@@ -1,6 +1,6 @@
 <template>
   <div class="randomizr relative">
-    <div class="absolute bg-black bg-opacity-50 focus-within:bg-opacity-100 hover:bg-opacity-100 inline-flex right-2 rounded-3xl text-2xl top-2 z-10 text-white opacity-75 hover:opacity-100 focus-within:opacity-100">
+    <div class="absolute bg-black bg-opacity-50 focus-within:bg-opacity-100 hover:bg-opacity-100 inline-flex right-2 rounded-3xl text-xl top-2 z-10 text-white opacity-75 hover:opacity-100 focus-within:opacity-100">
       <button v-if="presenting" @click="presenting = false" class="p-1 outline-none focus:ring">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
