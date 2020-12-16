@@ -152,16 +152,11 @@ export default {
       }
     },
     startPresentation() {
-      // begin presentation
-      this.presenting = true;
-
       this.draw();
 
       const el = this.$el;
 
-      setTimeout(function () { // eslint-disable-line
-        el.focus();
-      }, 250);
+      setTimeout(() => el.focus(), 250);
     },
   },
 };
