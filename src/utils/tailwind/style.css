@@ -1,0 +1,12 @@
+@config '../../../tailwind.shadow.config.cjs';
+
+@tailwind base;
+
+svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+@tailwind components;
+@tailwind utilities;

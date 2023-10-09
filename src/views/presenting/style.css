@@ -1,0 +1,21 @@
+:host {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  place-content: center;
+  user-select: none;
+}
+
+h1 {
+  @apply mb-6 text-center;
+  font-family: "The Perfect Christmas";
+  font-size: 22.5vw;
+  line-height: 0.75;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-center;
+}

@@ -1,23 +1,21 @@
 {
   "name": "randomizr",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest docs",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lit": "^2.7.2",
+    "tailwindcss": "^3.3.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.4",
-    "@vue/cli-plugin-eslint": "~5.0.4",
-    "@vue/cli-service": "~5.0.4",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^8.0.0",
-    "eslint-plugin-vue": "^8.0.0",
-    "sass": "^1.51.0",
-    "sass-loader": "^10.1.0",
-    "tailwindcss": "^2.0.2",
-    "vue": "^2.6.12",
-    "vue-template-compiler": "^2.6.12"
+    "@rollup/plugin-terser": "^0.4.0",
+    "postcss": "^8.4.21",
+    "rollup-plugin-minify-html-literals-v3": "^1.3.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.2.1"
   }
 }

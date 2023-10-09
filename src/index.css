@@ -1,0 +1,28 @@
+@tailwind base;
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  @apply text-slate-700;
+  font-size: calc((100vw - 600px ) / 640 * 5 + 19px);
+  text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 600px) {
+  html { font-size: 19px; }
+}
+
+@media (min-width: 1240px) {
+  html { font-size: 24px; }
+}
+
+svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+@tailwind components;
+/* @tailwind utilities; */
