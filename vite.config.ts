@@ -4,6 +4,7 @@ import terser from "@rollup/plugin-terser";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/randomizr",
   plugins: [
     {
       ...minifyLiterals(),
