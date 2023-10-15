@@ -1,47 +1,31 @@
 import { LitElement, html, unsafeCSS } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { _tailwind } from "../../utils";
+import { _tailwind, stackGenerator, getStorage, updateStorage } from "../../utils";
 import style from "./style.css?inline";
 import "../../components/the-clock";
 
 @customElement("the-presenting")
 export class ThePresenting extends LitElement {
-  @state() list: { name: string; uid: string; count: string }[] = JSON.parse(
-    localStorage.getItem("randomizr") || "[]"
-  );
+  @state() list = getStorage();
 
-  @state() history = [];
+  @state()
+  history: string[] = [];
 
-  @state() previous = null;
+  @state()
+  active: string | null | void = null;
 
-  @state() active = null;
+  stack = stackGenerator();
 
-  total: number | undefined;
+  total = 0;
 
   get identity() {
     return this.list.find((i) => i.uid === this.active);
   }
 
-  get bowl() {
-    const cards: string[] = [];
-
-    this.list.forEach((data) => {
-      // while in count
-      for (let i = 0; i < parseInt(data.count); i += 1) {
-        // add id to bowl
-        cards.push(data.uid);
-      }
-    });
-
-    if (this.total == null) {
-      this.total = cards.length;
-    }
-
-    return this._shuffle(cards as []);
-  }
-
   connectedCallback() {
     super.connectedCallback();
+
+    this.total = this.list.map((x) => parseInt(x.count)).reduce((acc, curr) => acc + curr, 0);
 
     this.addEventListener("click", this._handleClick);
     this.addEventListener("keydown", this._handleKeydown);
@@ -88,59 +72,19 @@ export class ThePresenting extends LitElement {
     this.dispatchEvent(new CustomEvent("end"));
   }
 
-  private updateStorage() {
-    localStorage.setItem("randomizr", JSON.stringify(this.list));
-  }
-
   private _draw() {
-    const { bowl } = this;
+    this.active = this.stack.next().value;
 
-    if (bowl.length < 1) {
-      this.active = null;
-      return;
+    if (this.active != null) {
+      this.history.push(this.active);
+
+      const target = this.list.find((i) => i.uid === this.active);
+
+      // @ts-ignore
+      target.count -= 1;
+
+      updateStorage(this.list);
     }
-
-    this.previous = this.active;
-
-    const draw = () => bowl[Math.floor(Math.random() * bowl.length)];
-
-    let id = draw();
-
-    // if multiple names remain don't draw the same name as previous
-    if (bowl.length > 1 && id === this.previous) {
-      id = draw();
-    }
-
-    this.active = id;
-
-    const target = this.list.find((i) => i.uid === id);
-
-    target.count -= 1;
-
-    this.updateStorage();
-
-    this.history.push(id);
-  }
-
-  private _shuffle(array: []) {
-    // source: Fisher-Yates Shuffle - https://bost.ocks.org/mike/shuffle/
-    /* eslint-disable */
-    let m = array.length,
-      t,
-      i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-
-    return array;
-    /* eslint-enable */
   }
 
   private _handleClick = () => {

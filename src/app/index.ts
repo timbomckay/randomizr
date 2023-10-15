@@ -10,7 +10,8 @@ const el = document.documentElement;
 
 @customElement("the-app")
 export class TheApp extends LitElement {
-  @property({ type: Boolean, reflect: true }) presenting = false;
+  @property({ type: Boolean, reflect: true })
+  presenting = false;
 
   @state() fullscreen = false;
 
