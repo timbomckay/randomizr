@@ -1,4 +1,4 @@
-@tailwind base;
+@import "tailwindcss";
 
 html {
   -moz-osx-font-smoothing: grayscale;
@@ -23,6 +23,3 @@ svg {
   height: 1em;
   width: 1em;
 }
-
-@tailwind components;
-/* @tailwind utilities; */

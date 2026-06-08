@@ -9,6 +9,8 @@
   user-select: none;
 }
 
+@reference "tailwindcss";
+
 h1 {
   @apply mb-6 text-center;
   font-family: "The Perfect Christmas";

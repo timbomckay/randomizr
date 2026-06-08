@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 :host {
   @apply bg-center bg-cover bg-no-repeat grid h-screen place-content-center relative gap-10 p-4;
 }

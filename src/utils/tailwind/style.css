@@ -1,12 +1,8 @@
-@config '../../../tailwind.shadow.config.cjs';
-
-@tailwind base;
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities";
 
 svg {
   fill: currentColor;
   height: 1em;
   width: 1em;
 }
-
-@tailwind components;
-@tailwind utilities;
