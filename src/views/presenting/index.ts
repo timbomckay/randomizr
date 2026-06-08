@@ -57,7 +57,7 @@ export class ThePresenting extends LitElement {
 
   clockTemplate() {
     return html`<div
-      class="absolute bottom-0 left-0 right-0 px-4 py-2 text-xs font-bold bg-slate-950 bg-opacity-60 flex"
+      class="absolute bottom-0 left-0 right-0 px-4 py-2 text-xs font-bold bg-slate-950/60 flex"
     >
       <the-clock></the-clock>
       <span class="ml-auto">${this.history.length}/${this.total}</span>

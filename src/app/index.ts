@@ -18,7 +18,7 @@ export class TheApp extends LitElement {
   controlsTemplate() {
     return html`
       <div
-        class="absolute bg-black bg-opacity-50 focus-within:bg-opacity-100 hover:bg-opacity-100 inline-flex right-2 rounded-3xl text-xl top-2 z-10 text-white opacity-75 hover:opacity-100 focus-within:opacity-100"
+        class="absolute bg-black/50 focus-within:bg-black hover:bg-black inline-flex right-2 rounded-3xl text-xl top-2 z-10 text-white opacity-75 hover:opacity-100 focus-within:opacity-100"
       >
         ${!this.presenting
           ? nothing
