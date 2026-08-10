@@ -76,7 +76,9 @@ export class ThePresenting extends LitElement {
     this.active = this.stack.next().value;
 
     if (this.active != null) {
-      this.history.push(this.active);
+      // reassign rather than push: Lit compares @state by identity, so an
+      // in-place mutation would not queue an update
+      this.history = [...this.history, this.active];
 
       const target = this.list.find((i) => i.uid === this.active);
 
