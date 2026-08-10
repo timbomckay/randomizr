@@ -1,5 +1,6 @@
 *.tsbuildinfo
 .DS_Store
+.claude/settings.local.json
 dist
 node_modules
 types
