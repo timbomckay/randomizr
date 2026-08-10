@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 1
+    groups:
+      # Routine version bumps: one batched PR per month.
+      all-deps:
+        applies-to: version-updates
+        patterns: ["*"]
+      # Security fixes are still opened as they land, but batched together
+      # rather than one PR per advisory.
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
