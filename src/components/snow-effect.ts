@@ -1,6 +1,31 @@
 import { html, LitElement, css } from "lit";
 import { customElement } from "lit/decorators.js";
 
+type SnowOptions = {
+  color: string;
+  radius: [number, number];
+  speed: [number, number];
+  wind: [number, number];
+};
+
+type SnowParams = {
+  color: string;
+  x: number;
+  y: number;
+  radius: number;
+  speed: number;
+  wind: number;
+  isResized: boolean;
+};
+
+type DrawFn = (ctx: CanvasRenderingContext2D, params: SnowParams) => void;
+
+type SnowFlake = {
+  update: () => void;
+  resized: () => void;
+  draw: () => void;
+};
+
 @customElement("snow-effect")
 export class SnowEffect extends LitElement {
   render() {
@@ -9,17 +34,22 @@ export class SnowEffect extends LitElement {
 
   firstUpdated() {
     const canvas = this.renderRoot.querySelector("canvas");
+    if (!canvas) return;
 
     const animFrame = window.requestAnimationFrame;
 
-    const defaultOptions = {
+    const defaultOptions: SnowOptions = {
       color: "#ffffff",
       radius: [0.5, 4.0],
       speed: [1, 4],
       wind: [-0.5, 3.0],
     };
 
-    const SnowItem = (canvas, drawFn = null, opts) => {
+    const SnowItem = (
+      canvas: HTMLCanvasElement,
+      drawFn: DrawFn | null = null,
+      opts?: Partial<SnowOptions>,
+    ): SnowFlake => {
       const options = { ...defaultOptions, ...opts };
       const { radius, speed, wind, color } = options; // eslint-disable-line
       const random = (a = 1, b = 0) => {
@@ -28,7 +58,7 @@ export class SnowEffect extends LitElement {
         return lower + Math.random() * (upper - lower);
       };
 
-      const params = {
+      const params: SnowParams = {
         color,
         x: random(0, canvas.offsetWidth),
         y: random(-canvas.offsetHeight, 0),
@@ -37,7 +67,7 @@ export class SnowEffect extends LitElement {
         wind: random(...wind),
         isResized: false,
       };
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d")!;
 
       const updateData = () => {
         params.x = random(0, canvas.offsetWidth);
@@ -85,11 +115,11 @@ export class SnowEffect extends LitElement {
       };
     };
 
-    const Snow = (canvas, count) => {
-      const ctx = canvas.getContext("2d");
-      const snowflakes = [];
+    const Snow = (canvas: HTMLCanvasElement, count: number) => {
+      const ctx = canvas.getContext("2d")!;
+      const snowflakes: SnowFlake[] = [];
 
-      const add = (item) => snowflakes.push(item(canvas));
+      const add = (item: (canvas: HTMLCanvasElement) => SnowFlake) => snowflakes.push(item(canvas));
 
       const update = () => snowflakes.forEach((el) => el.update());
 
@@ -120,7 +150,7 @@ export class SnowEffect extends LitElement {
         loop();
       };
 
-      init(count);
+      init();
       resize();
 
       return { add, resize };

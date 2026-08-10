@@ -5,7 +5,7 @@ import { customElement, state } from "lit/decorators.js";
 export class TheClock extends LitElement {
   @state() value = 0;
   hours = false;
-  private timer?: number | NodeJS.Timer;
+  private timer?: number;
 
   connectedCallback() {
     super.connectedCallback();
