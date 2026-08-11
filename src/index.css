@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* only scan src/ for class names - by default Tailwind walks the whole repo,
+   which pulls words out of README.md and friends into the built stylesheet */
+@import "tailwindcss" source(none);
+@source "./";
 
 html {
   -moz-osx-font-smoothing: grayscale;

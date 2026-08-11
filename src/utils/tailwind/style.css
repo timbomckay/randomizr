@@ -1,6 +1,8 @@
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/preflight" layer(base);
-@import "tailwindcss/utilities";
+/* only scan src/ - see the note in src/index.css */
+@import "tailwindcss/utilities" source(none);
+@source "../../";
 
 svg {
   fill: currentColor;
