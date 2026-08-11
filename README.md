@@ -1,74 +1,91 @@
 # randomizr
 
-This repo is uses 11ty and Lit together to create a randomizr app.
+A **Gifts Randomizr** — a full-screen party app for drawing names at random, one gift at a time. Add everyone to the list with how many gifts they have, hit **Show**, then click through to reveal who's up next.
 
-## Technologies
-
-- [Lit](https://lit.dev)
-- [11ty](https://www.11ty.dev/)
-- [11ty-islands](https://github.com/11ty/is-land)
-- [@lit-labs/ssr](https://github.com/lit/lit/tree/main/packages/labs/ssr)
-- [@lit-labs/eleventy-plugin-lit](https://github.com/lit/lit/tree/main/packages/labs/eleventy-plugin-lit)
-- [Wireit](https://github.com/google/wireit)
+Live at [timbomckay.github.io/randomizr](https://timbomckay.github.io/randomizr/).
 
 ## Quickstart
 
-Dev mode:
-
 ```bash
-npm i && npm run dev
+npm install && npm run dev
 ```
 
-Prod mode:
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Vite dev server with HMR |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Serve the built `dist/` locally |
+
+There is no test suite and no lint step. Type checking is not part of the build — run it on demand:
 
 ```bash
-npm i && npm start
+npx tsc --noEmit
 ```
 
-## Explanation
+## How it works
 
-11ty is a static site builder. Lit is a library that makes it easy to build Web Components. In this example, we combine the two so that you can sprinkle interactivity in a static site with Lit. We also use 11ty islands to make it easy to SSR your components and control how they are hydrated to provide an "island of interactivity".
+The app has two screens, toggled by the `presenting` property on `<the-app>`:
 
-### Directory Structure
+**Entries** — add a name with a gift count, adjust counts inline, remove people. The badge in the heading shows the running total.
 
-#### `site` directory
+**Presenting** — full-screen draw mode.
 
-This directory holds your 11ty templates. See the 11ty docs for more info.
+| Input | Action |
+| --- | --- |
+| Click, `Space`, `→`, `Enter`, `Tab` | Draw the next name |
+| `Esc` | Back to the entry list |
+| Fullscreen button | Toggle browser fullscreen |
 
-#### `site/_includes` directory
+Each draw decrements that person's gift count and **writes straight back to `localStorage`**, so a session is persistent and picks up where it left off. Once everyone reaches zero the screen settles on "Merry Christmas".
 
-This is for templates global to the 11ty templating system. Here we have a `default.html` layout and a `layouts` directory for layouts that are specific to a page or set of pages.
+> Testing tip: draws are destructive. To reset, bump the counts back up on the entry screen, or clear the `randomizr` key in `localStorage`.
 
-Make sure to include `default.html` in your layouts and in your 11ty `json` config files or simply extend them in nunjucks.
+### The draw order
 
-#### `site/css` directory
+[`src/utils/stack.ts`](src/utils/stack.ts) doesn't just shuffle a flat list — that would happily hand someone two gifts in a row. Instead it deals gifts into *bowls*, one bowl per average gift count, shuffles each bowl, then flattens them. Someone with three gifts lands in three different bowls and so gets spread across the running order. [`shuffle.ts`](src/utils/shuffle.ts) is a plain Fisher-Yates.
 
-This holds your css files. Later, you may want to minify these.
+## Stack
 
-#### `site/fonts` and `site/images` directories
+- [Lit](https://lit.dev) 3 — web components, everything renders in shadow DOM
+- [Tailwind CSS](https://tailwindcss.com) 4 via [`@tailwindcss/vite`](https://tailwindcss.com/docs/installation/using-vite)
+- [TypeScript](https://www.typescriptlang.org/) 7
+- [Vite](https://vite.dev) 8
 
-These hold your fonts and images. They are empty right now, but they will be copied over to the `dist` directory.
+Tailwind v4 compiles through Lightning CSS, so there's no `postcss.config.js` and no plugin chain to maintain.
 
-#### `site/*` (everything else)
+### Tailwind inside shadow DOM
 
-Most of these are for templating in 11ty. See the 11ty docs for more info. If you'd like to hook into the 11ty data system you may want to add a `_data` directory and consult the 11ty docs.
+Shadow roots don't inherit page-level styles, so a normal Tailwind setup would leave every component unstyled. [`src/utils/tailwind`](src/utils/tailwind/index.ts) compiles the utility layers into a single sheet and exports it as a Lit `CSSResult`:
 
-#### `src/components` directory
+```ts
+static styles = [_tailwind, unsafeCSS(style)];
+```
 
-This directory holds your Lit components. If you add a component here, to hook it up to SSR, add it to the `src/ssr.ts` file and make sure to add it to `tsEntrypoints` in `esbuild.config.mjs` to make sure it's included in the bundler. If you don't want to SSR a component, you can add it to the appropriate file in `src/pages/<your page name>.ts`;
+Every component that wants Tailwind classes pulls in `_tailwind` this way. [`src/index.css`](src/index.css) separately covers the light-DOM document styles.
 
-#### `src/pages` directory
+## Layout
 
-This is a place to put logic for individual pages. If you want to add a component to a page, you can import it here and just use it in your templates. These files are automatically added to the build.
+```
+src/
+  app/            <the-app> — root shell, view switching, fullscreen
+  views/
+    entries/      <the-entries> — the name/count list
+    presenting/   <the-presenting> — the draw screen
+  components/     <the-clock>, <snow-effect>
+  utils/
+    stack.ts      draw-order generator
+    shuffle.ts    Fisher-Yates
+    storage.ts    localStorage read/write
+    tailwind/     shared Tailwind sheet for shadow roots
+public/assets/    fonts and images, copied verbatim
+```
 
-#### `src/ssr.ts` file
+Components import their own scoped CSS with Vite's `?inline` query, which hands back a string suitable for `unsafeCSS`.
 
-This loads the files onto the server for Server-side rendering. 11ty will then server-side render any components on the page.
+## Deploying
 
-#### `esbuild.config.mjs` file
+Pushing to `master` triggers [`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml), which builds and publishes `dist/` to GitHub Pages. There is no separate CI job, so a broken build shows up as a failed deploy.
 
-This creates your bundles. It uses esbuild to bundle your components and your pages. You can add more entrypoints here if you want to add more entrypoints for hydration. The output of this will then be copied over to 11ty's appropriate output directory into the `/js` directory. e.g. dev mode will output `_dev/js/` and prod mode will output `_prod/js/`.
+`base` is set to `/randomizr` in [`vite.config.ts`](vite.config.ts) to match the Pages subpath.
 
-#### `eleventy.cjs` file
-
-This is the configuration file for 11ty. Please consult the docs.
+Dependency updates arrive as a single batched PR each month — see [`.github/dependabot.yml`](.github/dependabot.yml).
